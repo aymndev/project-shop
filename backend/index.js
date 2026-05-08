@@ -40,14 +40,19 @@ const isAdmin = (req, res, next) => {
 
 // ADD PRODUCT (ADMIN ONLY)
 app.post("/products", isAdmin, async (req, res) => {
-    const { title, price } = req.body;
+    const { name,
+        price,
+        image,
+        category,
+        stock,
+        description} = req.body;
 
     await db.query(
-        "INSERT INTO products (title, price) VALUES (?, ?)",
-        [title, price]
+        "INSERT INTO products (name, price, image, category, stock, description) VALUES (?, ?, ?, ?, ?, ?)",
+        [name, price, image, category, stock, description]
     );
 
-    res.json({ message: "Product added" });
+    res.json({ message: "Product added successfully" });
 });
 
 

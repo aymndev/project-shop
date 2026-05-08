@@ -19,6 +19,7 @@
   "homepage": "https://github.com/aymndev/project-shop#readme",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "react-router-dom": "^7.15.0"
   }
 }
