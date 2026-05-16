@@ -40,21 +40,38 @@ const isAdmin = (req, res, next) => {
 
 // ADD PRODUCT (ADMIN ONLY)
 app.post("/products", isAdmin, async (req, res) => {
-    const { name,
-        price,
-        image,
-        category,
-        stock,
-        description} = req.body;
 
-    await db.query(
-        "INSERT INTO products (name, price, image, category, stock, description) VALUES (?, ?, ?, ?, ?, ?)",
-        [name, price, image, category, stock, description]
-    );
+    try {
 
-    res.json({ message: "Product added successfully" });
+        console.log(req.body);
+
+        const {
+            name,
+            price,
+            image,
+            category,
+            stock,
+            description
+        } = req.body;
+
+        await db.query(
+            "INSERT INTO products (name, price, image, category, stock, description) VALUES (?, ?, ?, ?, ?, ?)",
+            [name, price, image, category, stock, description]
+        );
+
+        res.json({
+            message: "Product added successfully"
+        });
+
+    } catch (err) {
+
+        console.log("MYSQL ERROR:", err);
+
+        res.status(500).json({
+            message: "Database error"
+        });
+    }
 });
-
 
 // UPDATE PRODUCT (ADMIN ONLY)
 app.put("/products/:id", isAdmin, async (req, res) => {
